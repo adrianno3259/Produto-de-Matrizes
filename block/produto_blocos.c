@@ -228,6 +228,8 @@ Matrix multiplyBlockMatrix(BlockMatrix* a, BlockMatrix* b)
 #endif
 
 
+
+
 int main(int argc, char**argv)
 {
     char* filename = "mat1.txt", *filename2 = "mat2.txt";

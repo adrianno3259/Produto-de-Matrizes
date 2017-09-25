@@ -3,12 +3,11 @@ import sys
 
 
 def createMatrix():
-	if(len(sys.argv) == 4):
+	if(len(sys.argv) == 3):
 		m = int(sys.argv[1])
 		n = int(sys.argv[2])
-		name = sys.argv[3]
-
-		file = open(name+ '.txt', 'w')
+		#name = sys.argv[3]
+		#file = open(name+ '.txt', 'w')
 
 		mat = numpy.random.rand(m, n)
 		mat *= 20

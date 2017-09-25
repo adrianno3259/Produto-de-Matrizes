@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Escreve na tela o valor correspondente a A[i,j]
 // idx para variável tipo Matrix
@@ -12,6 +13,7 @@ typedef struct{             // tipo de dados Matrix
     int m, n;               // ordem da matriz
     double **mat;           // valores armazenados
 } Matrix;
+
 
 void allocMatrix(Matrix* mat, int m, int n){
     int i, j;
@@ -48,7 +50,7 @@ Matrix multiplyMatrix(Matrix* a, Matrix* b)
         for(j = 0; j < b->n; j++)                       // O(   (b->n) * (a->n)     )  ou O(pn)
         for(k = 0; k < a->n; k++)                       // O(         a->n          )  ou O(n)
             idx(res,i,j) += idxp(a,i,k) * idxp(b,k,j);  // O(          1            )
-        printMatrix(&res);
+        //printMatrix(&res);
         return res;
     }else{
         fprintf(stderr, "Erro: matrizes com dimensões incompatíveis.\n");
@@ -76,9 +78,51 @@ Matrix readMatrix(char* filename)
 }
 
 
+Matrix generateMatrix(int m, int n)
+{
+    //printf(" %s...\n", filename);
+    int i, j;
+    //FILE* file = fopen(filename, "r");
+    //fscanf(file, "%d %d\n", &m, &n);
+    Matrix matrix;
+    allocMatrix(&matrix, m, n);
+    
+    for(i = 0; i < matrix.m; i++)
+    for(j = 0; j < matrix.n; j++)
+    {
+        srand(time(NULL));   // should only be called once
+		double tmp = (double) (rand() % 30);
+        matrix.mat[i][j] = tmp;
+    }
+    //printMatrix(&matrix);
+    return matrix;
+}
+
+#define SIZE 1000
+
 int main(int argc, char**argv)
 {
 
+
+	Matrix A, B, R;
+
+    A = generateMatrix(SIZE, SIZE);
+    //printMatrix(&A);
+
+
+    B = generateMatrix(SIZE, SIZE);
+    //printMatrix(&B);
+
+
+    R = multiplyMatrix(&A, &B);
+	//printMatrix(&R);
+
+    freeMatrix(&R);
+    freeMatrix(&B);
+    freeMatrix(&A);
+
+
+	/*
     char *filename1, *filename2;
 
     if(argc == 3)
@@ -92,22 +136,7 @@ int main(int argc, char**argv)
         filename2 = "../inputs/mat2.txt";
     }
 
-    Matrix A, B, R;
-
-    A = readMatrix(filename1);
-    printMatrix(&A);
-
-
-    B = readMatrix(filename2);
-    printMatrix(&B);
-
-
-    R = multiplyMatrix(&A, &B);
-    printMatrix(&R);
-
-    freeMatrix(&R);
-    freeMatrix(&B);
-    freeMatrix(&A);
-
+    
+	*/
     return 0;
 }

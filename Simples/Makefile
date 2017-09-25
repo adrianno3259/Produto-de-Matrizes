@@ -3,7 +3,7 @@ CFLAGS= -O3
 OMP=
 LIB=
 DEBUG=
-PROF=-pg
+PROF=
 
 matmul_simples: matmul_simples.o
 	$(CC) matmul_simples.o -o matmul_simples $(OMP) $(CFLAGS) $(LIB) $(PROF) $(DEBUG)
